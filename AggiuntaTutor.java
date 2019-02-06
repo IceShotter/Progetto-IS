@@ -80,12 +80,12 @@ public class AggiuntaTutor extends HttpServlet {
 	
 	public static boolean Checker(String reg,String check)
 	{
-		Pattern checkreg=Pattern.compile(reg);
-		Matcher regmatcher=checkreg.matcher(check);
+		Pattern checkaggt=Pattern.compile(reg);
+		Matcher aggtmatcher=checkaggt.matcher(check);
 		boolean ritorno=false;
-		while(regmatcher.find()) {
-			if(regmatcher.group().length()!=0) {
-				System.out.println(regmatcher.group().trim());
+		while(aggtmatcher.find()) {
+			if(aggtmatcher.group().length()!=0) {
+				System.out.println(aggtmatcher.group().trim());
 				ritorno=true;
 			}
 		}
