@@ -1,6 +1,8 @@
-package Controller;
+package controller;
 
 import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,47 +11,85 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.StudenteBean;
+import model.StudenteBeanDao;
 import model.TutorBean;
 import model.TutorBeanDao;
 
-@WebServlet("/inserimentoTutor")
+@WebServlet("/AggiuntaTutor")
 public class AggiuntaTutor extends HttpServlet {
 
 	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		response.setContentType("text/html");
+		String nome= request.getParameter("nome1");
+		String cognome= request.getParameter("cognome1");
+		String matricola= request.getParameter("matricola1");
+		String data= request.getParameter("dataNascita1");
+		String email= request.getParameter("email1");
+		String password= request.getParameter("password1");
 		
-		String matricola= request.getParameter("matricola");
-		String nome= request.getParameter("nome");
-		String cognome= request.getParameter("cognome");
-		String data= request.getParameter("dataNascita");
-		String email= request.getParameter("email");
-		String password= request.getParameter("password");
+		boolean verificaNome=Checker("^[A-Z]+[a-z]+\\s*[A-Z]*[a-z]*",nome);
+		boolean verificaCognome=Checker("^[A-Z]+[a-z]+",cognome);
+		boolean verificaMatricola=Checker("^[0-9]{10}$",matricola);
+		boolean verificaData=Checker("^[0-9]{4}\\-[0-9]{2}\\-[0-9]{2}$",data);
+		boolean verificaEmail=Checker("^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w+)+$",email);
+		boolean verificaPassword=Checker("(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,}",password);
 		
-		TutorBean t= new TutorBean();
 		
-		t.setMatricola(matricola);
-		t.setNome(nome);
-		t.setCognome(cognome);
-		t.setDataNascita(data);
-		t.setEmail(email);
-		t.setPassword(password);
-		
-		TutorBeanDao tb= new TutorBeanDao();
-		
-		request.setAttribute("ins", tb.doSave(t));
-		
-		RequestDispatcher view= request.getRequestDispatcher("AggiungiTutor.jsp");
-		view.forward(request, response);
-		
-	
+		if(verificaNome==true)
+		{
+			if(verificaCognome==true)
+			{
+				if(verificaMatricola==true)
+				{
+					if(verificaData==true)
+					{
+						if(verificaEmail==true)
+						{
+							if(verificaPassword==true)
+							{
+								TutorBean tutorAgg=new TutorBean(matricola,nome,cognome,data,email,password,"a.misticoni@unisa.it");
+									TutorBeanDao tutor=new TutorBeanDao();
+									if(tutor.doSave(tutorAgg))
+										request.getSession().setAttribute("esitoAggiuntaT",true);
+									else
+										request.getSession().setAttribute("esitoAggiuntaT",false);
+									response.sendRedirect("AggiungiTutor.jsp");
+								
+								}else {
+									System.out.println("verifica password fallita");
+								}
+							}else {
+								System.out.println("verifica emailfallita");
+							}
+						}else {
+							System.out.println("verifica data fallita");
+						}
+					}else {
+						System.out.println("verifica matricola fallita");
+					}
+				}else {
+					System.out.println("verifica cognome fallita");
+				}
+			}else {
+				System.out.println("verifica nome fallita");
+			}
 	
 	}
 	
-	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-		doGet(request,response);
-		
+	public static boolean Checker(String reg,String check)
+	{
+		Pattern checkreg=Pattern.compile(reg);
+		Matcher regmatcher=checkreg.matcher(check);
+		boolean ritorno=false;
+		while(regmatcher.find()) {
+			if(regmatcher.group().length()!=0) {
+				System.out.println(regmatcher.group().trim());
+				ritorno=true;
+			}
+		}
+		return ritorno;
 	}
 	
 
