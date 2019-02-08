@@ -1,7 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Profilo Tutor</title>
+<title>Profilo Studente</title>
+ <%@ page import="model.LezioneBeanDao" %>
+ <%@ page import="model.LezioneBean" %>
+ <%@ page import="model.StudenteBeanDao" %>
+ <%@ page import="model.StudenteBean" %>
+  <%@ page import="java.util.*" %>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="css/bootstrap.css" rel="stylesheet">
@@ -10,6 +15,16 @@
 <link href='http://fonts.googleapis.com/css?family=Droid+Sans:400,700' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+<%
+if(request.getSession().getAttribute("stBean")!=null)
+{
+	StudenteBean studente=(StudenteBean)request.getSession().getAttribute("stBean");
+	request.getSession().setAttribute("profiloStudente", studente);
+	
+
+%>
+
 
 <style type="text/css">
 
@@ -75,7 +90,7 @@ font-size: 20px;
     <a class="home"href="ProfiloStudente.jsp" ><img hspace="5px" style="width:3%; height:3%;  border-radius: 10px;
   -moz-border-radius: 10px; /* firefox */
   -webkit-border-radius: 10px;" alt=""  src="img/user.jpg"><i></i>&nbsp;PROFILO</a>
-   <a class=" fas fa-sign-out-alt home" href="#"><i ></i> &nbsp;LOG OUT</a>
+   <a class=" fas fa-sign-out-alt home" href="#"><i ></i> &nbsp;LOGOUT</a>
   
   
     <div class="container"> <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </a> 
@@ -90,24 +105,24 @@ font-size: 20px;
     <thead class="riga">
       <tr>
         <th>Nome</th>
-        <td>Sandro</td>
+        <td><%=studente.getNome() %></td>
       
       </tr>
     </thead>
     <tbody>
       <tr>
         <th>Cognome</th>
-        <td>Gentile</td>
+        <td><%=studente.getCognome() %></td>
         
       </tr>      
       <tr>
         <th>Matricola</th>
-        <td>0512104523</td>
+        <td><%=studente.getMatricola() %></td>
        
       </tr>
       <tr>
         <th>Data di Nascita</th>
-        <td>10-12-1997</td>
+        <td><%=studente.getData() %></td>
         
       </tr>
     </tbody>
@@ -123,5 +138,11 @@ font-size: 20px;
 <script>
 $('#myModal').modal('hidden')
 </script>
+<%
+}else{
+	request.getSession().setAttribute("esitoRegistrazione",false);
+	response.sendRedirect("Registrati.jsp");
+}
+%>
 </body>
 </html>

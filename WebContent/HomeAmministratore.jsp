@@ -1,7 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Home Admin</title>
+<title>Home Amministratore</title>
+ <%@ page import="model.LezioneBeanDao" %>
+ <%@ page import="model.LezioneBean" %>
+ <%@ page import="model.StudenteBeanDao" %>
+ <%@ page import="model.StudenteBean" %>
+ <%@ page import="model.AmministratoreBean" %>
+ <%@ page import="model.AmministratoreBeanDao" %>
+  <%@ page import="java.util.*" %>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="css/bootstrap.css" rel="stylesheet">
@@ -11,6 +18,16 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 <script type="text/javascript">
+
+<%
+if(request.getSession().getAttribute("amBean")!=null)
+{
+	AmministratoreBean amministratore=(AmministratoreBean)request.getSession().getAttribute("amBean");
+	request.getSession().setAttribute("profiloAmministratore", amministratore);
+	
+
+%>
+
 function myFunction() {
 	  document.getElementById("myDropdown").classList.toggle("show");
 	}
@@ -178,11 +195,11 @@ background-color: #203748;
   				<button onclick="myFunction()" class="dropbtn">
   					<img hspace="10" style="width:30%; height:30%;  
   					border-radius: 10px; -moz-border-radius: 10px;
-  					 -webkit-border-radius: 10px;" alt=""  src="img/user.jpg">Pasquale 
+  					 -webkit-border-radius: 10px;" alt=""  src="img/user.jpg"><%=amministratore.getNome()%>
   				</button>
 				<div id="myDropdown" class="dropdown-content">
-					<a style="color: white;" class="icon-user profilo" href="ProfiloAmministratore.jsp ">&nbsp;Profilo</a>
-					<a style="color: white;" class=" fas fa-sign-out-alt  profilo" href="index.jsp"> &nbsp;Logout</a>
+					<a style="color: white;" class="icon-user profilo" href="ProfiloAmministratore.jsp ">&nbsp;PROFILO</a>
+					<a style="color: white;" class=" fas fa-sign-out-alt  profilo" href="index.jsp"> &nbsp;LOGOUT</a>
 				</div>
 			</div>
     <div class="container"> <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </a> 
@@ -212,6 +229,12 @@ background-color: #203748;
 
 <div class="col-4"></div>
 <%@include file="Footer.jsp" %>
+<%
+}else{
+	request.getSession().setAttribute("esitoRegistrazione",false);
+	response.sendRedirect("Registrati.jsp");
+}
+%>
 
 </body>
 </html>

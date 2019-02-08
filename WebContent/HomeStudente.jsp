@@ -101,7 +101,7 @@ font-size: 18px;}
    <a class="fas fa-user-friends home" href="RichiediAccompagnamento.jsp"><i ></i>&nbsp; RICHIEDI ACCOMPAGNAMENTO</a>
     <a class="home"href="ProfiloStudente.jsp" ><img hspace="5px" style="width:3%; height:3%;  border-radius: 10px;
   -moz-border-radius: 10px; /* firefox */
-  -webkit-border-radius: 10px;" alt=""  src="img/user.jpg"><i></i>&nbsp;<%=studente.getNome() %></a>
+  -webkit-border-radius: 10px;" alt=""  src="img/user.jpg"><i></i>&nbsp;PROFILO</a>
    <a class=" fas fa-sign-out-alt home" href="#"><i ></i> &nbsp;LOGOUT</a>
   
 

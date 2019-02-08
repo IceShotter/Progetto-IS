@@ -2,6 +2,13 @@
 <html lang="en">
 <head>
 <title>Profilo Tutor</title>
+ <%@ page import="model.LezioneBeanDao" %>
+ <%@ page import="model.LezioneBean" %>
+ <%@ page import="model.StudenteBeanDao" %>
+ <%@ page import="model.StudenteBean" %>
+ <%@ page import="model.TutorBean" %>
+ <%@ page import="model.TutorBeanDao" %>
+  <%@ page import="java.util.*" %>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="css/bootstrap.css" rel="stylesheet">
@@ -10,6 +17,15 @@
 <link href='http://fonts.googleapis.com/css?family=Droid+Sans:400,700' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+<%
+if(request.getSession().getAttribute("tuBean")!=null)
+{
+	TutorBean tutor=(TutorBean)request.getSession().getAttribute("tuBean");
+	request.getSession().setAttribute("profiloTutor", tutor);
+	
+
+%>
 
 <script type="text/javascript">
 function myFunction() {
@@ -116,11 +132,11 @@ background-color: #203748;
   				<button onclick="myFunction()" class="dropbtn">
   					<img hspace="10" style="width:30%; height:30%;  
   					border-radius: 10px; -moz-border-radius: 10px;
-  					 -webkit-border-radius: 10px;" alt=""  src="img/user.jpg">Pasquale 
+  					 -webkit-border-radius: 10px;" alt=""  src="img/user.jpg"><%=tutor.getNome() %> 
   				</button>
 				<div id="myDropdown" class="dropdown-content">
-					<a style="color: white;" class="icon-user profilo" href="ProfiloTutor.jsp ">&nbsp;Profilo</a>
-					<a style="color: white;" class=" fas fa-sign-out-alt  profilo" href="index.jsp"> &nbsp;Logout</a>
+					<a style="color: white;" class="icon-user profilo" href="ProfiloTutor.jsp ">&nbsp;PROFILO</a>
+					<a style="color: white;" class=" fas fa-sign-out-alt  profilo" href="index.jsp"> &nbsp;LOGOUT</a>
 				</div>
 			</div>
     <div class="container"> <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </a> 
@@ -135,24 +151,24 @@ background-color: #203748;
     <thead>
       <tr>
         <th>Nome</th>
-        <td>Sandro</td>
+        <td><%=tutor.getNome() %></td>
       
       </tr>
     </thead>
     <tbody>
       <tr>
         <th>Cognome</th>
-        <td>Gentile</td>
+        <td><%=tutor.getCognome() %></td>
         
       </tr>      
       <tr>
         <th>Matricola</th>
-        <td>0512104523</td>
+        <td><%=tutor.getMatricola()%></td>
        
       </tr>
       <tr>
         <th>Data di Nascita</th>
-        <td>10-12-1997</td>
+        <td><%=tutor.getDataNascita()%></td>
         
       </tr>
     </tbody>
@@ -168,5 +184,11 @@ background-color: #203748;
 <script>
 $('#myModal').modal('hidden')
 </script>
+<%
+}else{
+	request.getSession().setAttribute("esitoRegistrazione",false);
+	response.sendRedirect("Registrati.jsp");
+}
+%>
 </body>
 </html>

@@ -2,6 +2,13 @@
 <html lang="en">
 <head>
 <title>Profilo Amministratore</title>
+ <%@ page import="model.LezioneBeanDao" %>
+ <%@ page import="model.LezioneBean" %>
+ <%@ page import="model.StudenteBeanDao" %>
+ <%@ page import="model.StudenteBean" %>
+ <%@ page import="model.AmministratoreBean" %>
+ <%@ page import="model.AmministratoreBeanDao" %>
+  <%@ page import="java.util.*" %>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="css/bootstrap.css" rel="stylesheet">
@@ -10,6 +17,15 @@
 <link href='http://fonts.googleapis.com/css?family=Droid+Sans:400,700' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+<%
+if(request.getSession().getAttribute("amBean")!=null)
+{
+	AmministratoreBean amministratore=(AmministratoreBean)request.getSession().getAttribute("amBean");
+	request.getSession().setAttribute("profiloAmministratore", amministratore);
+	
+
+%>
 
 <script type="text/javascript">
 function myFunction() {
@@ -150,7 +166,7 @@ background-color: green;
   				<button onclick="myFunction()" class="dropbtn">
   					<img hspace="10" style="width:25%; height:25%;  
   					border-radius: 10px; -moz-border-radius: 10px;
-  					 -webkit-border-radius: 10px;" alt=""  src="img/user.jpg">Pasquale 
+  					 -webkit-border-radius: 10px;" alt=""  src="img/user.jpg"> <%=amministratore.getNome()%>
   				</button>
 				<div id="myDropdown" class="dropdown-content">
 					<a style="color: white;" class="icon-user profilo" href="ProfiloAmministratore.jsp ">&nbsp;Profilo</a>
@@ -170,24 +186,19 @@ background-color: green;
     <thead>
       <tr>
         <th>Nome</th>
-        <td>Carlo</td>
+        <td><%=amministratore.getNome()%></td>
       
       </tr>
     </thead>
     <tbody>
       <tr>
         <th>Cognome</th>
-        <td>Di Gianpaolo</td>
+        <td><%=amministratore.getCognome()%></td>
         
       </tr>      
       <tr>
-        <th>Matricola</th>
-        <td>051210001</td>
-       
-      </tr>
-      <tr>
         <th>Data di Nascita</th>
-        <td>10-12-1976</td>
+        <td><%=amministratore.getDataNascita()%></td>
         
       </tr>
     </tbody>
@@ -203,5 +214,11 @@ background-color: green;
 <script>
 $('#myModal').modal('hidden')
 </script>
+<%
+}else{
+	request.getSession().setAttribute("esitoRegistrazione",false);
+	response.sendRedirect("Registrati.jsp");
+}
+%>
 </body>
 </html>
