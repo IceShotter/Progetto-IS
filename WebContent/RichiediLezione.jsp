@@ -39,7 +39,7 @@ function CheckOra(ora){
       return true;
     }
   else{
-    alert("L'ora non  e' valida, selzeziona un orario dalle 08:00 alle 17:59");
+    alert("L'ora non  e' valida, selzeziona un orario dalle08:00 alle 17:59");
     return false;
   }
 }
@@ -164,9 +164,17 @@ background-color: #203748;
     <a class="home"href="ProfiloStudente.jsp" ><img hspace="5px" style="width:3%; height:3%;  border-radius: 10px;
   -moz-border-radius: 10px; /* firefox */
   -webkit-border-radius: 10px;" alt=""  src="img/user.jpg"><i></i>&nbsp;PROFILO</a>
-   <a class=" fas fa-sign-out-alt home" href="Logout.jsp"><i ></i> &nbsp;LOGOUT</a>
+   <a class=" fas fa-sign-out-alt home" href="Logout.jsp"><i ></i> &nbsp;LOG OUT</a>
  
-
+ 
+ <%
+ TutorBeanDao td=new TutorBeanDao();
+  ArrayList<TutorBean> lista=td.doRetrieve();
+  for(int i=0;i<lista.size();i++)
+  {
+	  TutorBean tb=lista.get(i);
+	  
+%> 
   
     <div class="container"> <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </a> 
    <span class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top"></span>
@@ -191,22 +199,9 @@ background-color: #203748;
 			
 			<label style="font-size: 30px" for=data>	Tutor:</label>
 			<select style="width: 80%; height: 80%; background-color: #DDF3DF;" onchange="selectURL(this.options[this.selectedIndex].value);" name="tutor">
-			<option selected value="">Seleziona il tutor...</option>
-	 
- <%
- TutorBeanDao td=new TutorBeanDao();
-  ArrayList<TutorBean> lista=td.doRetrieve();
-  for(int i=0;i<lista.size();i++)
-  {
-	  TutorBean tb=lista.get(i);
-	  
-%> 
-					<option value=<%=tb.getEmail() %>><%=tb.getNome() %><%=tb.getCognome() %></option>
-
-<%
-	}
-  
-%>
+	<option selected value="">Seleziona il tutor...</option>
+	<option value=<%=tb.getEmail() %>><%=tb.getNome() %><%=tb.getCognome() %></option>
+	
 </select>
 
 <div class=Bottoni>
@@ -219,7 +214,10 @@ background-color: #203748;
 </div>
 
 
-
+<%
+	}
+  
+%>
 <div class="col-4"></div>
 <%@include file="Footer.jsp" %>
 
