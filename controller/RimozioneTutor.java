@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,26 +13,25 @@ import javax.servlet.http.HttpServletResponse;
 import model.TutorBean;
 import model.TutorBeanDao;
 
-@WebServlet("/rimozioneTutor")
+@WebServlet("/RimozioneTutor")
 public class RimozioneTutor extends HttpServlet {
 
 	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
-		response.setContentType("text/html");
+		String emailT=request.getParameter("emailTutor");
 		
-		String matricola = request.getParameter("In sospeso, qui ci va il campo della colonna matricola generato dinamicamente");
-		
-		TutorBean t= new TutorBean();
-		
-		t.setMatricola(matricola);
-		
-		TutorBeanDao d= new TutorBeanDao();
-		
-		request.setAttribute("rem", d.doDelete(t.getMatricola()));
-		
-		RequestDispatcher view= request.getRequestDispatcher("Rimozione.jsp");
-		view.forward(request, response);
+		TutorBeanDao td=new TutorBeanDao();
+		  ArrayList<TutorBean> lista=td.doRetrieve();
+		  for(int i=0;i<lista.size();i++)
+		  {
+			  TutorBean tb=lista.get(i);
+			  if(tb.getEmail().equals(emailT)) {
+				  td.doDelete(tb.getEmail());
+				  response.sendRedirect("RimuoviTutor.jsp");
+			  }
+			  
+		  }
 	}
 	
 	

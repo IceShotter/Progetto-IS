@@ -2,6 +2,12 @@
 <html lang="en">
 <head>
 <title>Rimuovi Tutor</title>
+<%@ page import="model.TutorBeanDao" %>
+ <%@ page import="model.TutorBean" %>
+ <%@ page import="model.LezioneBean" %>
+  <%@ page import="model.StudenteBeanDao" %>
+ <%@ page import="model.StudenteBean" %>
+  <%@ page import="java.util.*" %>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="css/bootstrap.css" rel="stylesheet">
@@ -167,9 +173,10 @@ background-color: #203748;
     </div>
   </div>
  </div>
+ 
+ 
+ <form action="RimozioneTutor" method="post" >
 <div class="container profile">
-
-
 	<div class="container">
   <h2>Rimozione Tutor</h2>
   <table class="table">
@@ -181,36 +188,32 @@ background-color: #203748;
         <th>Elimina?</th>
       </tr>
     </thead>
+    
     <tbody>
-      <tr>
-        <td>Sandro</td>
-        <td>Gentile</td>
-        <td>0512104556</td>
-        <td> <input class="myButton" type="submit" value="Rimuovi"></td>
-      </tr>      
-      <tr>
-        <td>Alberto</td>
-        <td>Misticoni</td>
-        <td>0512104548</td>
-        <td> <input class="myButton" type="submit" value="Rimuovi"></td>
-      </tr>
-        <tr>
-        <td>Salvatore</td>
-        <td>De Vivo</td>
-        <td>0512104698</td>
-        <td> <input class="myButton" type="submit" value="Rimuovi"></td>
-      </tr>
-        <tr>
-        <td>Francesco</td>
-        <td>Auriemma</td>
-        <td>0512104325</td>
-        <td> <input class="myButton" type="submit" value="Rimuovi"></td>
-      </tr>
+     <%
+ TutorBeanDao td=new TutorBeanDao();
+  ArrayList<TutorBean> lista=td.doRetrieve();
+  for(int i=0;i<lista.size();i++)
+  {
+	  TutorBean tb=lista.get(i);
+	  
+%> 
+		
+			<tr>
+	        <td><%=tb.getNome()%></td>
+	        <td><%=tb.getCognome()%></td>
+	        <td><%=tb.getMatricola()%></td>
+	        <td> <input class="myButton" type="submit" value="Rimuovi" "><input  type="hidden" name="emailTutor" value="<%=tb.getEmail()%>"></td>
+	      	</tr> 		
+<%
+	}
+  
+%>
     </tbody>
   </table>
+ </div>
 </div>
-</div>
-
+ </form>
 
 
 

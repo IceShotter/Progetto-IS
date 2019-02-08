@@ -95,25 +95,16 @@ font-size: 18px;}
 <div class="navbar">
   <div class="navbar-inner">
   <img hspace="0px" style="width: 10%; height: 10%" alt="" src="img/logo-big.png">
-   <a class=" fas fa-home home" href="HomeAmministratore.jsp"><i></i>&nbsp;HOME</a>
+   <a class=" fas fa-home home" href="HomeStudente.jsp"><i></i>&nbsp;HOME</a>
    
    <a class="fas fa-chalkboard-teacher home" href="RichiediLezione.jsp"><i ></i>&nbsp; RICHIEDI LEZIONE</a>
    <a class="fas fa-user-friends home" href="RichiediAccompagnamento.jsp"><i ></i>&nbsp; RICHIEDI ACCOMPAGNAMENTO</a>
     <a class="home"href="ProfiloStudente.jsp" ><img hspace="5px" style="width:3%; height:3%;  border-radius: 10px;
   -moz-border-radius: 10px; /* firefox */
-  -webkit-border-radius: 10px;" alt=""  src="img/user.jpg"><i></i>&nbsp;PROFILO</a>
-   <a class=" fas fa-sign-out-alt home" href="#"><i ></i> &nbsp;LOG OUT</a>
+  -webkit-border-radius: 10px;" alt=""  src="img/user.jpg"><i></i>&nbsp;<%=studente.getNome() %></a>
+   <a class=" fas fa-sign-out-alt home" href="#"><i ></i> &nbsp;LOGOUT</a>
   
- <%
- LezioneBeanDao ld=new LezioneBeanDao();
-  ArrayList<LezioneBean> lista=ld.doRetrieve();
-  for(int i=0;i<lista.size();i++)
-  {
-	  LezioneBean lb=lista.get(i);
-	  boolean effettuato=lb.getEffettuato();
-	  if(effettuato==true){
-	  
-%>
+
   
     <div class="container"> <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </a> 
    <span class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top"></span>
@@ -136,6 +127,18 @@ font-size: 18px;}
       </tr>
     </thead>
     <tbody>
+     <%
+ LezioneBeanDao ld=new LezioneBeanDao();
+  ArrayList<LezioneBean> lista=ld.doRetrieve();
+  for(int i=0;i<lista.size();i++)
+  {
+	  LezioneBean lb=lista.get(i);
+	  if((lb.getNomeStudente()).equals(studente.getEmail())){
+		
+		  boolean effettuato=lb.getEffettuato();
+	  	if(effettuato==true){
+	  
+%>
       <tr>
         <td><%=lb.getData()%></td>
         <td><%=lb.getMateria() %></td>
@@ -144,29 +147,19 @@ font-size: 18px;}
         <td><%=lb.getAula() %></td>
         <td><%=lb.getDescrizione() %></td>
         <td> <input class="myButton" type="submit" value="Vai"></td>
-      </tr>      
+      </tr>  
+      <%
+	  }
+	}
+  }
+  
+%>    
     </tbody>
   </table>
 </div>
 
-<%
-	}
-  }
-  
-%>
 
 
- <%
- LezioneBeanDao ldPrenotati=new LezioneBeanDao();
-  ArrayList<LezioneBean> lista1=ld.doRetrieve();
-  for(int i=0;i<lista.size();i++)
-  {
-	  LezioneBean lb=lista1.get(i);
-	  boolean effettuato=lb.getEffettuato();
-	  if(effettuato==false){
-	 
-	  
-%>
 <div class="container">
   <h2>Lezioni  prenotati</h2>
   <table class="table">
@@ -183,6 +176,20 @@ font-size: 18px;}
       </tr>
     </thead>
     <tbody>
+    
+ <%
+ LezioneBeanDao ldPrenotati=new LezioneBeanDao();
+  ArrayList<LezioneBean> lista1=ld.doRetrieve();
+  for(int i=0;i<lista.size();i++)
+  {
+	  LezioneBean lb=lista1.get(i);
+	  if((lb.getNomeStudente()).equals(studente.getEmail())){
+		
+	  boolean effettuato=lb.getEffettuato();
+	  if(effettuato==false){
+	 
+	  
+%>
       <tr>
        <td><%=lb.getData()%></td>
         <td><%=lb.getMateria() %></td>
@@ -191,15 +198,16 @@ font-size: 18px;}
         <td><%=lb.getAula() %></td>
         <td><%=lb.getDescrizione() %></td>
       </tr>      
-      
+        <%
+	  }
+	}
+  }
+%>
     </tbody>
   </table>
 </div>
   </div>
-  <%
-	}
-  }
-%>
+
 <div class="col-4"></div>
 <%@ include file="Footer.jsp" %>
 
