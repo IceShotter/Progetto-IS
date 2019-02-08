@@ -2,6 +2,12 @@
 <html lang="en">
 <head>
 <title>Home Studente</title>
+ <%@ page import="model.LezioneBeanDao" %>
+ <%@ page import="model.LezioneBean" %>
+ <%@ page import="model.StudenteBeanDao" %>
+ <%@ page import="model.StudenteBean" %>
+  <%@ page import="java.util.*" %>
+  
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="css/bootstrap.css" rel="stylesheet">
@@ -10,6 +16,15 @@
 <link href='http://fonts.googleapis.com/css?family=Droid+Sans:400,700' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+
+<%
+if(request.getSession().getAttribute("stBean")!=null)
+{
+	StudenteBean studente=(StudenteBean)request.getSession().getAttribute("stBean");
+	request.getSession().setAttribute("profiloStudente", studente);
+%>
+
 
 <style type="text/css">
 
@@ -80,7 +95,7 @@ font-size: 18px;}
 <div class="navbar">
   <div class="navbar-inner">
   <img hspace="0px" style="width: 10%; height: 10%" alt="" src="img/logo-big.png">
-   <a class=" fas fa-home home" href="HomeStudente.jsp"><i></i>&nbsp;HOME</a>
+   <a class=" fas fa-home home" href="HomeAmministratore.jsp"><i></i>&nbsp;HOME</a>
    
    <a class="fas fa-chalkboard-teacher home" href="RichiediLezione.jsp"><i ></i>&nbsp; RICHIEDI LEZIONE</a>
    <a class="fas fa-user-friends home" href="RichiediAccompagnamento.jsp"><i ></i>&nbsp; RICHIEDI ACCOMPAGNAMENTO</a>
@@ -89,6 +104,16 @@ font-size: 18px;}
   -webkit-border-radius: 10px;" alt=""  src="img/user.jpg"><i></i>&nbsp;PROFILO</a>
    <a class=" fas fa-sign-out-alt home" href="#"><i ></i> &nbsp;LOG OUT</a>
   
+ <%
+ LezioneBeanDao ld=new LezioneBeanDao();
+  ArrayList<LezioneBean> lista=ld.doRetrieve();
+  for(int i=0;i<lista.size();i++)
+  {
+	  LezioneBean lb=lista.get(i);
+	  boolean effettuato=lb.getEffettuato();
+	  if(effettuato==true){
+	  
+%>
   
     <div class="container"> <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </a> 
    <span class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top"></span>
@@ -96,145 +121,6 @@ font-size: 18px;}
   </div>
 </div>
 <div class="container profile">
-
-<div class="container">
-  <h2>Lezioni prenotate</h2>
-  <table class="table">
-    <thead>
-      <tr class="riga">
-        <th>Data</th>
-        <th>Materia</th>
-        <th>Tutor</th>
-        <th>Ora</th>
-        <th>Aula</th>
-        <th>Descrizione</th>
-        <th>Stato</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>13-11-2019</td>
-        <td>Base di Dati</td>
-        <td>Simone</td>
-        <td>10:00</td>
-        <td>P4</td>
-        <td></td>
-        <td>In Sospeso</td>
-      </tr>      
-      <tr>
-      <td>13-11-2019</td>
-        <td>Base di Dati</td>
-        <td>Simone</td>
-        <td>10:00</td>
-        <td>P4</td>
-        <td>Esame Scritto</td>
-        <td>Accettata</td>
-      </tr>
-      <tr>
-       <td>13-11-2019</td>
-        <td>Base di Dati</td>
-        <td>Simone</td>
-        <td>10:00</td>
-        <td>P4</td>
-        <td>Esame Scritto</td>
-        <td>Accettata</td>
-      </tr>
-       <tr>
-      <td>13-11-2019</td>
-        <td>Base di Dati</td>
-        <td>Simone</td>
-        <td>10:00</td>
-        <td>P4</td>
-        <td>Esame Scritto</td>
-        <td>Accettata</td>
-      </tr>
-      <tr>
-       <td>13-11-2019</td>
-        <td>Base di Dati</td>
-        <td>Simone</td>
-        <td>10:00</td>
-        <td>P4</td>
-        <td>Esame Scritto</td>
-        <td>Accettata</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
-<div class="container">
-  <h2>Accompagnamenti prenotati</h2>
-  <table class="table">
-    <thead>
-      <tr class="riga">
-        <th>Data</th>
-        <th>Materia</th>
-        <th>Tutor</th>
-        <th>Ora</th>
-        <th>Aula</th>
-        <th>Descrizione</th>
-        <th>Stato</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>13-11-2019</td>
-        <td>Base di Dati</td>
-        <td>Simone</td>
-        <td>10:00</td>
-        <td>P4</td>
-        <td></td>
-        <td>Accettato</td>
-      </tr>      
-      <tr>
-       	<td>13-11-2018</td>
-        <td>TSW</td>
-        <td>Sandro</td>
-        <td>9:00</td>
-        <td>P3</td>
-        <td></td>
-        <td>In Sospeso</td>
-      </tr>
-      <tr>
-     	<td>14-10-2019</td>
-        <td>TSW</td>
-        <td>Sandro</td>
-        <td>9:00</td>
-        <td>P3</td>
-        <td></td>
-        <td>In Sospeso</td>
-      </tr>
-         <tr>
-        <td>13-11-2019</td>
-        <td>Base di Dati</td>
-        <td>Simone</td>
-        <td>10:00</td>
-        <td>P4</td>
-        <td></td>
-        <td>Accettato</td>
-      </tr>      
-      <tr>
-       	<td>13-11-2018</td>
-        <td>TSW</td>
-        <td>Sandro</td>
-        <td>9:00</td>
-        <td>P3</td>
-        <td></td>
-        <td>In Sospeso</td>
-      </tr>
-      <tr>
-     	<td>14-10-2019</td>
-        <td>TSW</td>
-        <td>Sandro</td>
-        <td>9:00</td>
-        <td>P3</td>
-        <td></td>
-        <td>In Sospeso</td>
-      </tr>
-      <tr>
-    </tbody>
-  </table>
-</div>
-
 <div class="container">
   <h2>Lezioni effettuate</h2>
   <table class="table">
@@ -251,66 +137,69 @@ font-size: 18px;}
     </thead>
     <tbody>
       <tr>
-        <td>13-09-2019</td>
-        <td>Ingegneria del software</td>
-        <td>Sandro</td>
-        <td>18:00</td>
-        <td>P14</td>
-        <td></td>
+        <td><%=lb.getData()%></td>
+        <td><%=lb.getMateria() %></td>
+        <td><%=lb.getNomeTutor() %></td>
+        <td><%=lb.getOra() %></td>
+        <td><%=lb.getAula() %></td>
+        <td><%=lb.getDescrizione() %></td>
         <td> <input class="myButton" type="submit" value="Vai"></td>
       </tr>      
-      <tr>
-       <td>13-09-2019</td>
-        <td>Ingegneria del software</td>
-        <td>Sandro</td>
-        <td>18:00</td>
-        <td>P14</td>
-        <td></td>
-        <td> <input class="myButton" type="submit" value="Vai"></td>
-      </tr>
-      <tr>
-       <td>13-09-2019</td>
-        <td>Ingegneria del software</td>
-        <td>Sandro</td>
-        <td>18:00</td>
-        <td>P14</td>
-        <td></td>
-        <td> <input class="myButton" type="submit" value="Vai"></td>
-      </tr>
-      <tr>
-        <td>13-09-2019</td>
-        <td>Ingegneria del software</td>
-        <td>Sandro</td>
-        <td>18:00</td>
-        <td>P14</td>
-        <td></td>
-        <td> <input class="myButton" type="submit" value="Vai"></td>
-      </tr>
-      <tr>
-        <td>13-09-2019</td>
-        <td>Ingegneria del software</td>
-        <td>Sandro</td>
-        <td>18:00</td>
-        <td>P14</td>
-        <td></td>
-        <td> <input class="myButton" type="submit" value="Vai"></td>
-      </tr>
-      <tr>
-        <td>13-09-2019</td>
-        <td>Ingegneria del software</td>
-        <td>Sandro</td>
-        <td>18:00</td>
-        <td>P14</td>
-        <td></td>
-        <td> <input class="myButton" type="submit" value="Vai"></td>
-      </tr>
     </tbody>
   </table>
 </div>
 
+<%
+	}
+  }
+  
+%>
 
 
+ <%
+ LezioneBeanDao ldPrenotati=new LezioneBeanDao();
+  ArrayList<LezioneBean> lista1=ld.doRetrieve();
+  for(int i=0;i<lista.size();i++)
+  {
+	  LezioneBean lb=lista1.get(i);
+	  boolean effettuato=lb.getEffettuato();
+	  if(effettuato==false){
+	 
+	  
+%>
+<div class="container">
+  <h2>Lezioni  prenotati</h2>
+  <table class="table">
+    <thead>
+      <tr class="riga">
+        <th>Data</th>
+        <th>Materia</th>
+        <th>Tutor</th>
+        <th>Ora</th>
+        <th>Aula</th>
+        <th>Tipo</th>
+        <th>Descrizione</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+       <td><%=lb.getData()%></td>
+        <td><%=lb.getMateria() %></td>
+        <td><%=lb.getNomeTutor() %></td>
+        <td><%=lb.getOra() %></td>
+        <td><%=lb.getAula() %></td>
+        <td><%=lb.getDescrizione() %></td>
+      </tr>      
+      
+    </tbody>
+  </table>
+</div>
   </div>
+  <%
+	}
+  }
+%>
 <div class="col-4"></div>
 <%@ include file="Footer.jsp" %>
 
@@ -320,5 +209,11 @@ font-size: 18px;}
 <script>
 $('#myModal').modal('hidden')
 </script>
+<%
+}else{
+	request.getSession().setAttribute("esitoRegistrazione",false);
+	response.sendRedirect("Registrati.jsp");
+}
+%>
 </body>
 </html>
