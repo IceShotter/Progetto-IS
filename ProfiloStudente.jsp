@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Profilo Tutor</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet">
+<link href="font/css/fontello.css" rel="stylesheet">
+<link href='http://fonts.googleapis.com/css?family=Droid+Sans:400,700' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+<style type="text/css">
+
+.home{
+font-size:20px; 
+text-decoration:none; 
+background-color: transparent; 
+color:#f0f8ff; 
+border: none;
+padding: 20px;
+}
+
+.home:hover{
+color: white;
+text-decoration: none; 
+background-color: #203748;
+-webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+  cursor: pointer;
+  border-radius: 10px;
+  -moz-border-radius: 10px; /* firefox */
+  -webkit-border-radius: 10px;
+}
+.carica{
+text-decoration:none; 
+background-color: transparent; 
+color:#f0f8ff; 
+border: 2px solid green;
+-webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+  cursor: pointer;
+  border-radius: 10px;
+  -moz-border-radius: 10px; /* firefox */
+  -webkit-border-radius: 10px;
+
+}
+.carica:hover{
+color: white;
+text-decoration: none; 
+background-color: green;
+-webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+  cursor: pointer;
+  border-radius: 10px;
+  -moz-border-radius: 10px; /* firefox */
+  -webkit-border-radius: 10px;
+
+}
+
+.riga, th, td{
+font-size: 20px;
+}
+</style>
+</head>
+<body>
+<div class="navbar">
+  <div class="navbar-inner">
+  <img hspace="0px" style="width: 10%; height: 10%" alt="" src="img/logo-big.png">
+   <a class=" fas fa-home home" href="HomeStudente.jsp"><i></i>&nbsp;HOME</a>
+   
+   <a class="fas fa-chalkboard-teacher home" href="RichiediLezione.jsp"><i ></i>&nbsp; RICHIEDI LEZIONE</a>
+   <a class="fas fa-user-friends home" href="RichiediAccompagnamento.jsp"><i ></i>&nbsp; RICHIEDI ACCOMPAGNAMENTO</a>
+    <a class="home"href="ProfiloStudente.jsp" ><img hspace="5px" style="width:3%; height:3%;  border-radius: 10px;
+  -moz-border-radius: 10px; /* firefox */
+  -webkit-border-radius: 10px;" alt=""  src="img/user.jpg"><i></i>&nbsp;PROFILO</a>
+   <a class=" fas fa-sign-out-alt home" href="#"><i ></i> &nbsp;LOG OUT</a>
+  
+  
+    <div class="container"> <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </a> 
+   <span class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top"></span>
+    </div>
+  </div>
+</div>
+<div class="container profile">
+<div class="container">
+  <h2>I miei dati</h2>
+  <table class="table table-bordered">
+    <thead class="riga">
+      <tr>
+        <th>Nome</th>
+        <td>Sandro</td>
+      
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th>Cognome</th>
+        <td>Gentile</td>
+        
+      </tr>      
+      <tr>
+        <th>Matricola</th>
+        <td>0512104523</td>
+       
+      </tr>
+      <tr>
+        <th>Data di Nascita</th>
+        <td>10-12-1997</td>
+        
+      </tr>
+    </tbody>
+  </table>
+</div>
+  </div>
+<div class="col-4"></div>
+<%@ include file="Footer.jsp" %>
+
+
+<script src="js/jquery-1.10.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script>
+$('#myModal').modal('hidden')
+</script>
+</body>
+</html>
